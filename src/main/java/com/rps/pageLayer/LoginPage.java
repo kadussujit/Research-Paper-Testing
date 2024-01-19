@@ -193,4 +193,5 @@ public class LoginPage extends TestBase {
 		Assert.assertEquals(placeholderValue, "Enter your password");
 	}
 
+	
 }

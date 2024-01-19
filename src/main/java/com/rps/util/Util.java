@@ -2,6 +2,7 @@ package com.rps.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 
 import javax.imageio.ImageIO;
 
@@ -18,7 +19,7 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 public class Util extends TestBase{
 	
-	private String ssPath = ".//Screenshots//";
+	private String ssPath = "./Screenshots/";
 	
 	public void takeScreenshot(String filename)
 	{
@@ -44,13 +45,41 @@ public class Util extends TestBase{
 	    }
 	}
 	
-//	public void captureFullPageScreenshot(String filename) throws IOException {
+//	public void captureFullPageScreenshot(String filename){
 //        // Capture the full-page screenshot
 //        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 //
 //        // Copy the screenshot to the destination file
 //        File destFile = new File(ssPath+filename+".png");
-//        FileUtils.copyFile(srcFile, destFile);
+//        try {
+//			FileUtils.copyFile(srcFile, destFile);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //    }
 
+	/**
+     * Generates a random string of the specified length.
+     *
+     * @param length The length of the random string to generate.
+     * @return The generated random string.
+     */
+    public String generateRandomString(int length) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("Length should be greater than zero.");
+        }
+
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+
+        SecureRandom random = new SecureRandom();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(characters.length());
+            randomString.append(characters.charAt(randomIndex));
+        }
+
+        return randomString.toString();
+    }
 }
