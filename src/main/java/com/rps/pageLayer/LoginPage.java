@@ -1,46 +1,196 @@
 package com.rps.pageLayer;
 
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import com.rps.testBase.TestBase;
 
-public class LoginPage extends TestBase{
-	
-	public LoginPage()
-	{
+public class LoginPage extends TestBase {
+
+	public LoginPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	// --------------------------------- WebElements --------------------
-	//username input box
-	@FindBy(xpath="//input[@id='username']")
+	/**
+	 * Represents the username input box on the web page.
+	 */
+	@FindBy(xpath = "//input[@id='username']")
 	private WebElement username_input;
-	
-	//password input box
-	@FindBy(xpath="//input[@id='password']")
+
+	/**
+	 * Represents the password input box on the web page.
+	 */
+	@FindBy(xpath = "//input[@id='password']")
 	private WebElement password_input;
-	
-	//login button
-	@FindBy(xpath="//button[contains(text(),'Login')]")
+
+	/**
+	 * Represents the login button on the web page.
+	 */
+	@FindBy(xpath = "//button[contains(text(),'Login')]")
 	private WebElement login_button;
-	
+
+	/**
+	 * Represents the login text on the web page.
+	 */
+	@FindBy(xpath = "//*[contains(text(),'Login')]")
+	private WebElement login_text;
+
+	/**
+	 * Represents the username text on the web page.
+	 */
+	@FindBy(xpath = "//label[contains(text(),'Username')]")
+	private WebElement username_text;
+
+	/**
+	 * Represents the password text on the web page.
+	 */
+	@FindBy(xpath = "//label[contains(text(),'Password')]")
+	private WebElement passoword_text;
+
+	/**
+	 * Represents the login error message on the web page.
+	 */
+	@FindBy(xpath = "//*[@class='flex justify-center m-4']")
+	private WebElement login_error_msg;
+
 	// --------------------------------- Methods --------------------------
-	
+
+	/**
+	 * This method is used to input the username in username input box
+	 * 
+	 * @author sujit.kadus
+	 * @param username
+	 */
 	public void enterUsername(String username) {
+		logger.info("Entering username " + username);
 		username_input.sendKeys(username);
-		logger.info("Entered username");
+		logger.info("Entered username successfully...!");
 	}
-	
+
+	/**
+	 * This method is used to input the password in password input box
+	 * 
+	 * @author sujit.kadus
+	 * @param password
+	 */
 	public void enterPassword(String password) {
+		logger.info("Entering password " + password);
 		password_input.sendKeys(password);
-		logger.info("Entered Password");
+		logger.info("Entered Password successfully...!");
 	}
-	
+
+	/**
+	 * This method is used to click on Login button on login page
+	 * 
+	 * @author sujit.kadus
+	 */
 	public void clickOnLoginButton() {
+		logger.info("Clicking on Login Button");
 		login_button.click();
-		logger.info("Clicked on login button");
+		logger.info("Clicked on login button...!");
+	}
+
+	/**
+	 * This method is used to login in to the application
+	 * 
+	 * @author sujit.kadus
+	 * @param username
+	 * @param Password
+	 */
+	public void loginToApplication(String username, String Password) {
+		enterUsername(username);
+		enterPassword(Password);
+		clickOnLoginButton();
+		assert !isErrorMessageDisplayed() : "Login error message is displayed.";
+	}
+
+	/**
+	 * Checks whether the login error message is displayed on the web page.
+	 *
+	 * @return {@code true} if the login error message is displayed, {@code false}
+	 *         otherwise.
+	 * 
+	 *         This method attempts to locate the login error message element and
+	 *         checks its visibility. If the element is found and displayed, it
+	 *         returns {@code true}. If the element is not found, is stale, or times
+	 *         out, it considers the message as not displayed and returns
+	 *         {@code false}.
+	 *
+	 * @throws NoSuchElementException         if the login error message element is
+	 *                                        not found.
+	 * @throws StaleElementReferenceException if the login error message element
+	 *                                        reference is stale.
+	 * @throws TimeoutException               if the login error message element is
+	 *                                        not visible within the specified
+	 *                                        timeout.
+	 * 
+	 * @author sujit.kadus
+	 */
+	public boolean isErrorMessageDisplayed() {
+		try {
+			return login_error_msg.isDisplayed();
+		} catch (NoSuchElementException | StaleElementReferenceException | TimeoutException e) {
+			// If the element is not found or stale or times out, consider it as not
+			// displayed
+			return false;
+		}
+	}
+
+	/**
+	 * Validates the presence of login button
+	 */
+	public void loginButtonPresenceValidation() {
+		Assert.assertTrue(login_button.isDisplayed());
+	}
+
+	/**
+	 * Validates the presence of username input box
+	 */
+	public void usernameInputboxPresenceValidation() {
+		Assert.assertTrue(username_input.isDisplayed());
+	}
+
+	/**
+	 * Validates the presence of password input box
+	 */
+	public void passwordInputboxPresenceValidation() {
+		Assert.assertTrue(password_input.isDisplayed());
+	}
+
+	public void loginPageUITextValidation() {
+		Assert.assertTrue(login_text.isDisplayed());
+		Assert.assertTrue(username_text.isDisplayed());
+		Assert.assertTrue(passoword_text.isDisplayed());
+	}
+
+	/**
+	 * Validates the placeholder value for the username input field.
+	 *
+	 * @throws AssertionError if the placeholder value does not match the expected
+	 *                        value.
+	 * @author sujit.kadus
+	 */
+	public void usernamePlaceholderValidation() {
+		String placeholderValue = username_input.getAttribute("placeholder");
+		Assert.assertEquals(placeholderValue, "Enter your username");
+	}
+
+	/**
+	 * Validates the placeholder value for the password input field.
+	 *
+	 * @throws AssertionError if the placeholder value does not match the expected
+	 *                        value.
+	 * @author sujit.kadus
+	 */
+	public void passwordPlaceholderValidation() {
+		String placeholderValue = password_input.getAttribute("placeholder");
+		Assert.assertEquals(placeholderValue, "Enter your password");
 	}
 
 }
