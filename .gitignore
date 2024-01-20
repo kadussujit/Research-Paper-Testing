@@ -1,0 +1,24 @@
+# TestNG test output directory
+test-output/
+
+# TestNG Screenshots directory
+Screenshots/
+
+# Eclipse specific files
+.project
+.classpath
+.settings/
+
+# IntelliJ specific files
+.idea/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+/target/

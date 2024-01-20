@@ -1,0 +1,14 @@
+{
+    "Project":
+    {
+        "LoginPage":
+        {
+            "USERNAME_PLACEHOLDER" : "Enter your username",
+            "PASSWORD_PLACEHOLDER" : "Enter your password"
+        },
+        "SubmissionPage":
+        {
+            "WELCOME_MESSAGE" : "Welcome,"
+        }
+    }
+}

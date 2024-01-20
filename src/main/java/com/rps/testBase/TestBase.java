@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeMethod;
 
 import com.rps.pageLayer.LoginPage;
 import com.rps.pageLayer.SubmissionPage;
+import com.rps.util.JSONread;
 import com.rps.util.Util;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -22,17 +23,16 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class TestBase {
 	
 	public static WebDriver driver;
-	public static Logger logger;
+	public static final Logger logger = LogManager.getLogger(TestBase.class);;
 	
 	public static LoginPage loginPage;
 	public static SubmissionPage submsnPage;
 	public static Util util;
+	public static JSONread jsonRead;
+	
 	
 	@BeforeClass
 	public void start() {
-		logger = LogManager.getLogger(TestBase.class);
-//		logger = Logger.getLogger("Demoblaze Framework");
-//		PropertyConfigurator.configure("log4j.properties");
 		logger.info("Framework Execution Started");
 	}
 	
@@ -78,10 +78,13 @@ public class TestBase {
 //		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
 		
-//		util = new UtilClass();
+		//---------------Page class objects-------------
 		loginPage = new LoginPage();
 		submsnPage = new SubmissionPage();
 		util = new Util();
+		jsonRead = new JSONread();
+		
+		
 	}
 	
 	
@@ -89,7 +92,7 @@ public class TestBase {
 	public void tearDown()
 	{
 		driver.quit();
-		logger.info("Chrome Browser closed.");
+		logger.info("Browser closed.");
 	}
 
 }
