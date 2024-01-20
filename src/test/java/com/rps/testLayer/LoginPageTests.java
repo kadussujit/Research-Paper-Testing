@@ -20,7 +20,7 @@ public class LoginPageTests extends TestBase{
 	@Test
 	public void invalidLoginTest() {
 		loginPage.enterUsername(username);
-		loginPage.enterPassword("invalidPassword");
+		loginPage.enterPassword(util.generateAlphaNumericString(8));
 		loginPage.clickOnLoginButton();
 		loginPage.isErrorMessageDisplayed();
 	}
@@ -45,9 +45,13 @@ public class LoginPageTests extends TestBase{
 		loginPage.loginButtonPresenceValidation();
 		
 		loginPage.enterUsername(username);
-		loginPage.enterPassword("wrongpass");
+		loginPage.enterPassword(util.generateAlphaNumericString(9));
 		loginPage.clickOnLoginButton();
 		loginPage.isErrorMessageDisplayed();
+		loginPage.clearUsername();
+		loginPage.usernamePlaceholderValidation();
+		loginPage.clearPassword();
+		loginPage.passwordPlaceholderValidation();
 	}
 
 }
