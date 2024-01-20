@@ -47,7 +47,7 @@ jobs:
 
     - name: Check Test Results
       run: |
-        if Select-String -Path target\surefire-reports\*.txt -Pattern "FAILURES!!!"; then
+        if (Select-String -Path target\surefire-reports\*.txt -Pattern "FAILURES!!!") {
           echo "Test failures found. Failing the workflow."
           exit 1
-        fi
+        }

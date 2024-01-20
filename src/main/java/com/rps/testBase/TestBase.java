@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -49,7 +50,8 @@ public class TestBase {
 		if(br.equalsIgnoreCase("chrome"))
 		{
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			ChromeOptions chromeOptions = new ChromeOptions();
+			driver = new ChromeDriver(chromeOptions);
 			logger.info("Chrome Browser Launched");
 		}
 		else if(br.equalsIgnoreCase("firefox")) {
@@ -72,9 +74,10 @@ public class TestBase {
 		logger.info("Website Launched");
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
+		
 //		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-		logger.info("Implicitly wait provided");
+		
 //		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
 		
