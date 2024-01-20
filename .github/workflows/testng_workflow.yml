@@ -2,33 +2,11 @@ name: TestNG Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  test-ubuntu:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-
-    - name: Build with Maven
-      run: mvn clean test
-
-    - name: Check Test Results
-      run: |
-        if grep -q "FAILURES!!!" target/surefire-reports/*.txt; then
-          echo "Test failures found. Failing the workflow."
-          exit 1
-        fi
-
   test-windows:
     runs-on: windows-latest
 
