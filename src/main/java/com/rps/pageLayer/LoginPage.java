@@ -165,8 +165,20 @@ public class LoginPage extends TestBase {
 
 	public void loginPageUITextValidation() {
 		Assert.assertTrue(login_text.isDisplayed());
+		String login_uiText_actualText = login_text.getText();
+		Assert.assertEquals(login_uiText_actualText, "Login");
+		
 		Assert.assertTrue(username_text.isDisplayed());
+		String username_uiText_actualText = username_text.getText();
+		Assert.assertEquals(username_uiText_actualText, "Username");
+		
 		Assert.assertTrue(passoword_text.isDisplayed());
+		String password_uiText_actualText = passoword_text.getText();
+		Assert.assertEquals(password_uiText_actualText, "Password");
+		
+		Assert.assertTrue(login_button.isDisplayed());
+		String login_button_actualText = login_button.getText();
+		Assert.assertEquals(login_button_actualText, "Login");
 	}
 
 	/**
@@ -177,8 +189,10 @@ public class LoginPage extends TestBase {
 	 * @author sujit.kadus
 	 */
 	public void usernamePlaceholderValidation() {
+		logger.info("Validating username placeholder");
 		String placeholderValue = username_input.getAttribute("placeholder");
 		Assert.assertEquals(placeholderValue, "Enter your username");
+		logger.info("Validated username placeholder...!");
 	}
 
 	/**
@@ -189,8 +203,22 @@ public class LoginPage extends TestBase {
 	 * @author sujit.kadus
 	 */
 	public void passwordPlaceholderValidation() {
+		logger.info("Validating password placeholder");
 		String placeholderValue = password_input.getAttribute("placeholder");
 		Assert.assertEquals(placeholderValue, "Enter your password");
+		logger.info("Validated password placeholder...!");
+	}
+	
+	public void clearUsername() {
+		logger.info("Clearing username field");
+		username_input.clear();
+		logger.info("Cleared username field...!");
+	}
+	
+	public void clearPassword() {
+		logger.info("Clearing password field");
+		password_input.clear();
+		logger.info("Cleared password field...!");
 	}
 
 	
