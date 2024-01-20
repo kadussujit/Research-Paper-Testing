@@ -15,7 +15,6 @@ public class LoginPageTests extends TestBase{
 		loginPage.enterPassword("sujit");
 		loginPage.clickOnLoginButton();
 		submsnPage.displayWelcomeUserMessage();
-//		util.takeScreenshot("loginPageTestSuccess");
 	}
 	
 	@Test
